@@ -59,7 +59,7 @@ export function Header() {
                   <div className="p-4 flex items-center justify-center border-b">
                     <Link href="/">
                       <Image
-                        src="/Logo.png" // Path to your logo image
+                        src="/Logo.PNG" // Path to your logo image
                         alt="Vinceville Logo"
                         width={120} // Adjust width for your logo
                         height={80} // Adjust height for your logo
