@@ -144,24 +144,24 @@ const BasketPage: FC = () => {
                 <span>Subtotal</span>
                 <InfoIcon className="size-5 text-white fill-gray-300" />
               </p>
-              <span>Ksh. {totalPrice}</span>
+              <span>$ {totalPrice}</span>
             </div>
             <p className="flex justify-between text-gray-600 text-sm">
               <span>Free delivery</span>
-              <span>Ksh. 0.00</span>
+              <span> 0.00</span>
             </p>
             <div className="flex justify-between text-gray-600 text-sm ">
               <p>
                 <span>Taxes</span>
                 <span className="text-gray-400 text-sm ml-1">(Included)</span>
               </p>
-              <span>Ksh. {totalTaxes}</span>
+              <span>${totalTaxes}</span>
             </div>
             <Separator className="mt-4" />
             <div>
               <p className="flex justify-between text-lg font-medium py-2">
                 <span>Total:</span>
-                <span className="font-semibold">Ksh. {totalPrice}</span>
+                <span className="font-semibold">$ {totalPrice}</span>
               </p>
             </div>
             <Separator className="my-3" />
