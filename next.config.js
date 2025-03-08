@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["cdn.sanity.io", "i.imghippo.com"], // Added "iili.io" to the allowed domains
+    domains: ["cdn.sanity.io"], // Added "iili.io" to the allowed domains
   },
 };
 
