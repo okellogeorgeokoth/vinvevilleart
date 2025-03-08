@@ -1,12 +1,12 @@
 import Link from "next/link";
-import ClothingIcon from "./icons/ClothingIcon";
+import ProductIcon from "./icons/ProductIcon";
 
 const NoProductsFound = () => {
   return (
     <div className="w-full min-h-[400px] flex flex-col items-center justify-center mb-40">
       <div className="relative mb-8">
         <div className="absolute inset-0 bg-neutral-50 blur-2xl rounded-full"></div>
-        <ClothingIcon />
+        <ProductIcon />
       </div>
 
       <h2 className="font-light text-3xl text-neutral-800 mb-3 tracking-wide">
