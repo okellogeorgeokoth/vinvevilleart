@@ -153,6 +153,14 @@ export function Footer() {
                 </li>
                 <li>
                   <Link
+                    href="/favorites"
+                    className="hover:text-white transition-colors"
+                  >
+                    Favorites
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="/contactus"
                     className="hover:text-white transition-colors"
                   >
