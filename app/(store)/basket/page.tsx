@@ -89,7 +89,7 @@ const BasketPage: FC = () => {
   return (
     <div className="container mx-auto p-4 max-w-6xl  md:mb-48">
       <h1 className="text-sm font-medium mb-4">
-      Free shipping on orders over Ksh. 800.00
+      Free shipping on orders over $ 1000.00
       </h1>
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-grow">

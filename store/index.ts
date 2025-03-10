@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface BasketItem {
+  _id: string; // Ensure _id is part of the BasketItem type
   product: Product;
   quantity: number;
 }
@@ -39,11 +40,16 @@ const useBasketStore = create<BasketState>()(
               }),
             };
           } else {
+            // Ensure the new item includes the _id property
             return {
-              items: [...state.items, { product, quantity: 1 }],
+              items: [
+                ...state.items,
+                { _id: product._id, product, quantity: 1 },
+              ],
             };
           }
         }),
+
       // Remove item from basket
       removeItem: (productId: string) =>
         set((state) => ({
@@ -58,16 +64,20 @@ const useBasketStore = create<BasketState>()(
             return acc;
           }, [] as BasketItem[]),
         })),
+
       clearBasket: () => set({ items: [] }),
+
       getTotalPrice: () =>
         get().items.reduce(
           (total, item) => total + (item.product.price ?? 0) * item.quantity,
           0,
         ),
+
       getItemCount: (productId) => {
         const item = get().items.find((item) => item.product._id === productId);
         return item ? item.quantity : 0;
       },
+
       getGroupedItems: () => get().items,
     }),
 
