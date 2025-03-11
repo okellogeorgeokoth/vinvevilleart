@@ -22,7 +22,7 @@ const ProductThumb = ({ product }: ProductThumbProps): ReactElement => {
   return (
     <Link
       href={`/product/${product.slug?.current}`}
-      className={`group w-full min-w-[350px]  h-[500px] md:min-h-[680px] flex flex-col rounded border border-gray-200/30  shadow-sm hover:shadow-md size-full transition-all duration-700  overflow-hidden ${
+      className={`group w-full min-w-[350px]  h-[500px] md:min-h-[480px] flex flex-col rounded border border-gray-200/30  shadow-sm hover:shadow-md size-full transition-all duration-700  overflow-hidden ${
         isOutOfStock ? "opacity-50" : ""
       }`}
     >
