@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import type { Category } from "@/sanity.types";
-import { SlidersHorizontalIcon } from "lucide-react"; // Removed ChevronDown
+import { ChevronDown, SlidersHorizontalIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
@@ -31,9 +31,9 @@ export function CategoryFilter({ categories }: CategorySelectorProps) {
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant={"ghost"} asChild>
-          <div className="text-xs md:text-sm font-normal md:font-semibold text-gray-700">
-            {selectedCategory !== undefined && <span>FILTER BY:</span>}
+        <Button variant={"ghost"} asChild   >
+          <div className="text-xs md:text-sm font-normal md:font-semibold text-gray-700" >
+            {selectedCategory !== undefined && <span>FILTER FOR:</span>}
             <div className="flex items-center gap-3">
               <span className="text-gray-600 group-hover:text-white text-xs md:text-sm transition-colors uppercase font-normal md:font-semibold">
                 {selectedCategory?.title || "FILTER"}

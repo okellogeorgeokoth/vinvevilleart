@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Heart } from "lucide-react";
 import { urlFor } from "@/sanity/lib/image";
-import useFavoritesStore from "@/lib/useuseFavoritesStore";
+import useFavoritesStore from "@/lib/useFavoritesStore";
 
 const FavoritesPage = () => {
   const { favorites } = useFavoritesStore();

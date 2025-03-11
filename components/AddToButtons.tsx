@@ -1,5 +1,5 @@
 "use client";
-import useFavoritesStore from "@/lib/useuseFavoritesStore";
+import useFavoritesStore from "@/lib/useFavoritesStore";
 import type { Product } from "@/sanity.types";
 import useBasketStore from "@/store";
 import { Heart, ShoppingBag, X } from "lucide-react"; // Import X icon
