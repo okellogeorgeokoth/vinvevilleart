@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Heart } from "lucide-react";
 import { urlFor } from "@/sanity/lib/image";
 import useFavoritesStore from "@/lib/useFavoritesStore";
+import Image from "next/image";
 
 const FavoritesPage = () => {
   const { favorites } = useFavoritesStore();
@@ -29,11 +30,11 @@ const FavoritesPage = () => {
             >
               {/* Product Image Section */}
               <div className="relative h-[300px] md:h-[400px] overflow-hidden rounded-lg">
-                <img
-                  src={product.image ? urlFor(product.image).url() : "/placeholder.jpg"}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
+              <Image
+                src={product.image ? urlFor(product.image).url() : "/placeholder.jpg"}
+                alt={product.name || "Product image"}
+                className="w-full h-full object-cover"
+              />
               </div>
 
               {/* Product Details Section */}
