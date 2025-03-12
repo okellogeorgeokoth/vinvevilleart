@@ -7,14 +7,14 @@ import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 const ImagesSlider = [
   {
     id: 1,
-    srcDesktop: "/slider/Desktop-1.JPG",
-    srcMobile: "/slider/MOBILE-1.JPG",
+    srcDesktop: "/slider/Desktop-1.jpg",
+    srcMobile: "/slider/MOBILE-1.jpg",
     alt: "Slider 1",
   },
   {
     id: 2,
-    srcDesktop: "/slider/Desktop-2.JPG",
-    srcMobile: "/slider/MOBILE-2.JPG",
+    srcDesktop: "/slider/Desktop-2.jpg",
+    srcMobile: "/slider/MOBILE-2.jpg",
     alt: "Slider 2",
   },
 ];
