@@ -33,10 +33,10 @@ export function OrderBy({ categories }: OrderByProps) {
       <DropdownMenuTrigger asChild>
         <Button variant={"ghost"} asChild>
           <div className="text-xs md:text-sm font-normal md:font-semibold text-gray-700" >
-            {selectedCategory !== undefined && <span>SORT BY PRICE:</span>}
+            {selectedCategory !== undefined && <span>SORT BY CATEGORY:</span>}
             <div className="flex items-center gap-3">
               <span className="text-gray-600 group-hover:text-white text-xs md:text-sm transition-colors uppercase font-normal md:font-semibold">
-                {selectedCategory?.title || "Sort by price"}
+                {selectedCategory?.title || "Sort by Category"}
               </span>
               <ChevronDown
                 className={cn(
