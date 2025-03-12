@@ -11,7 +11,7 @@ const announcements = [
   },
   {
     id: 2,
-    text: "Free shipping on orders over $99",
+    text: "Free shipping on orders over $1000",
     highlight: "Free shipping",
   },
   {
