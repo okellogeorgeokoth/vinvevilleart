@@ -34,6 +34,7 @@ const menuItems = [
 
 export function Header() {
   const [showSearch, setShowSearch] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false); // State to manage sheet open/close
   const itemCount = useBasketStore((state) =>
     state.items.reduce((total, item) => total + item.quantity, 0),
   );
@@ -45,7 +46,7 @@ export function Header() {
         <nav className="max-w-7xl mx-auto px-4">
           <div className="flex h-16 items-center justify-between gap-4">
             {/* Mobile menu */}
-            <Sheet>
+            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
               <SheetTitle className="sr-only">Menu</SheetTitle>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="lg:hidden">
@@ -53,7 +54,11 @@ export function Header() {
                   <span className="sr-only">Menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+              <SheetContent
+                side="left"
+                className="w-[300px] sm:w-[400px]"
+                onMouseLeave={() => setIsSheetOpen(false)} // Close the sheet when mouse leaves
+              >
                 <div className="w-full mx-auto bg-white overflow-hidden">
                   {/* Logo in Mobile Menu */}
                   <div className="p-4 flex items-center justify-center border-b">
@@ -104,16 +109,16 @@ export function Header() {
 
             {/* Desktop navigation */}
             <nav className="hidden lg:flex lg:gap-8">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="text-sm font-medium hover:text-zinc-600 transition-colors hover:border-2 hover:border-opacity-50 hover:border-[#ff3a33] rounded-full px-4 py-2"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </nav>
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="text-sm font-medium hover:text-zinc-600 transition-colors hover:border-2 hover:border-opacity-50 hover:border-[#ff3a33] rounded-full px-4 py-2"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
 
             {/* Actions */}
             <div className="flex items-center md:gap-2">
