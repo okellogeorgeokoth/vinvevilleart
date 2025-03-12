@@ -11,7 +11,7 @@ interface AddToBasketButtonProps {
 
 const AddToBasketButton: FC<AddToBasketButtonProps> = ({
   product,
-  disabled,
+
 }) => {
   const { addItem, removeItem, getItemCount } = useBasketStore();
   const itemCount = getItemCount(product._id);
