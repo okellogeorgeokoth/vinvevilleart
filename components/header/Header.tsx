@@ -81,6 +81,7 @@ export function Header() {
                           <Link
                             href={item.href}
                             className="block p-4 hover:bg-gray-50 transition-colors duration-200"
+                            onClick={() => setIsSheetOpen(false)} // Close the sheet when a link is clicked
                           >
                             <span className="font-normal text-gray-600">{item.title}</span>
                           </Link>
