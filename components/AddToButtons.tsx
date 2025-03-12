@@ -9,8 +9,10 @@ export const dynamic = "force-static";
 
 interface AddToButtonProps {
   product: Product;
+  disabled?: boolean; // Add disabled prop
 }
-const AddToButton = ({ product }: AddToButtonProps): ReactElement => {
+
+const AddToButton = ({ product, disabled }: AddToButtonProps): ReactElement => {
   const { addItem, items } = useBasketStore();
   const { addFavorite, favorites } = useFavoritesStore(); // Assuming you have a favorites store
   const [basketMessage, setBasketMessage] = useState<string | null>(null);
@@ -18,6 +20,8 @@ const AddToButton = ({ product }: AddToButtonProps): ReactElement => {
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState<boolean>(false); // Define isSizeGuideOpen state
 
   const handleAddToBasket = () => {
+    if (disabled) return; // Prevent adding out-of-stock products
+
     if (items.some((item) => item._id === product._id)) {
       setBasketMessage("Product already added to basket");
       setTimeout(() => setBasketMessage(null), 3000); // Clear message after 3 seconds
@@ -45,18 +49,23 @@ const AddToButton = ({ product }: AddToButtonProps): ReactElement => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-3">
+        {/* Add to Cart Button */}
         <button
           onClick={handleAddToBasket}
-          className="w-full bg-gray-950 text-white py-3 px-6 rounded-full hover:bg-gray-950/85 flex items-center justify-center gap-2 hover:scale-95 transition-all hover:shadow-lg"
+          disabled={disabled} // Disable button if product is out of stock
+          className={`w-full bg-gray-950 text-white py-3 px-6 rounded-full hover:bg-gray-950/85 flex items-center justify-center gap-2 hover:scale-95 transition-all hover:shadow-lg ${
+            disabled ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
           <ShoppingBag className="h-5 w-5" />
-          Add to Cart
+          {disabled ? "Out of Stock" : "Add to Cart"}
         </button>
         {basketMessage && <p className="text-sm text-gray-600 text-center">{basketMessage}</p>}
 
+        {/* Add to Favorites Button */}
         <button
           onClick={handleAddToFavorites}
-          className="w-full border border-gray-300 py-3 px-6 rounded-full hover:bg-gray-100  flex items-center justify-center gap-2 hover:scale-95 transition-all hover:shadow-lg"
+          className="w-full border border-gray-300 py-3 px-6 rounded-full hover:bg-gray-100 flex items-center justify-center gap-2 hover:scale-95 transition-all hover:shadow-lg"
         >
           <Heart className="h-5 w-5" />
           Add to Favorites
@@ -64,6 +73,7 @@ const AddToButton = ({ product }: AddToButtonProps): ReactElement => {
         {favoriteMessage && <p className="text-sm text-gray-600 text-center">{favoriteMessage}</p>}
       </div>
 
+      {/* Size Guide Button */}
       <div className="flex items-start">
         <button
           onClick={openSizeGuide} // Open modal on click
@@ -99,28 +109,28 @@ const AddToButton = ({ product }: AddToButtonProps): ReactElement => {
                     <th className="px-4 py-2 text-left">Material</th>
                   </tr>
                 </thead>
-              <tbody>
-                <tr className="border-b">
-                  <td className="px-4 py-2">24</td>
-                  <td className="px-4 py-2">18</td>
-                  <td className="px-4 py-2">Wooden</td>
-                  <td className="px-4 py-2">Canvas</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="px-4 py-2">36</td>
-                  <td className="px-4 py-2">24</td>
-                  <td className="px-4 py-2">Metal</td>
-                  <td className="px-4 py-2">Acrylic</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="px-4 py-2">48</td>
-                  <td className="px-4 py-2">36</td>
-                  <td className="px-4 py-2">Floating</td>
-                  <td className="px-4 py-2">Paper</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                <tbody>
+                  <tr className="border-b">
+                    <td className="px-4 py-2">24</td>
+                    <td className="px-4 py-2">18</td>
+                    <td className="px-4 py-2">Wooden</td>
+                    <td className="px-4 py-2">Canvas</td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="px-4 py-2">36</td>
+                    <td className="px-4 py-2">24</td>
+                    <td className="px-4 py-2">Metal</td>
+                    <td className="px-4 py-2">Acrylic</td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="px-4 py-2">48</td>
+                    <td className="px-4 py-2">36</td>
+                    <td className="px-4 py-2">Floating</td>
+                    <td className="px-4 py-2">Paper</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}

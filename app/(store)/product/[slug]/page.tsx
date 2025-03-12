@@ -1,3 +1,4 @@
+
 import AddToButton from "@/components/AddToButtons";
 import { imageUrl } from "@/lib/imageUrl";
 import { getProductBySlug } from "@/sanity/lib/products/getProductBySlug";
@@ -9,8 +10,8 @@ import { notFound } from "next/navigation";
 export const dynamic = "force-static";
 export const revalidate = 800;
 
-const ProductPage = async ({ params }:  { params:Promise<{ slug: string }>}) => {
-  const { slug } =await  params;
+const ProductPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await params;
   const product = await getProductBySlug(slug);
 
   if (!product) {
@@ -28,7 +29,7 @@ const ProductPage = async ({ params }:  { params:Promise<{ slug: string }>}) => 
       <div className="grid grid-cols-1 md:grid-cols-2 mx-auto max-w-7xl gap-8">
         {/* Product Image Section */}
         <div
-          className={`relative h-[440px] md:h-[680px] max-w-xl overflow-hidden rounded-lg  ${
+          className={`relative h-[440px] md:h-[680px] max-w-xl overflow-hidden rounded-lg ${
             isOutOfStock ? "opacity-50" : ""
           }`}
         >
@@ -63,7 +64,7 @@ const ProductPage = async ({ params }:  { params:Promise<{ slug: string }>}) => 
           <div>
             <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
             <div className="text-2xl font-semibold mb-4">
-              Ksh. {product.price?.toFixed(2)}
+              $ {product.price?.toFixed(2)}
             </div>
             <div className="prose max-w-none mb-6">
               {Array.isArray(product.description) && (
@@ -74,7 +75,7 @@ const ProductPage = async ({ params }:  { params:Promise<{ slug: string }>}) => 
 
           {/* Add to Cart Button */}
           <div className="mt-6">
-            <AddToButton product={product} />
+            <AddToButton product={product} disabled={isOutOfStock} />
           </div>
         </div>
       </div>
