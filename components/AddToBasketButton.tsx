@@ -11,7 +11,7 @@ const AddToBasketButton: FC<AddToBasketButtonProps> = ({ product }) => {
   const { addItem, removeItem, getItemCount } = useBasketStore();
   const itemCount = getItemCount(product._id);
   const [isClient, setIsClient] = useState<boolean>(false);
-  const [stockMessage, setStockMessage] = useState<string | null>(null); // Message for stock limit
+  const [stockMessage, setStockMessage] = useState<string | null>(null);
 
   // Check if the product is out of stock
   const isOutOfStock = product.stock != null && product.stock <= 0;
@@ -19,16 +19,21 @@ const AddToBasketButton: FC<AddToBasketButtonProps> = ({ product }) => {
   useEffect(() => setIsClient(true), []);
 
   const handleAddItem = () => {
-    if (isOutOfStock) return; // Prevent adding out-of-stock products
+    if (isOutOfStock) {
+      setStockMessage("This product is out of stock.");
+      setTimeout(() => setStockMessage(null), 3000);
+      return;
+    }
 
     // Check if adding another item exceeds the available stock
     if (product.stock != null && itemCount >= product.stock) {
       setStockMessage(`Only ${product.stock} items available in stock.`);
-      setTimeout(() => setStockMessage(null), 3000); // Clear message after 3 seconds
+      setTimeout(() => setStockMessage(null), 3000);
       return;
     }
 
     addItem(product); // Add item if stock is available
+    console.log("Item added to basket. Current count:", getItemCount(product._id)); // Debug log
   };
 
   if (!isClient) return null;
@@ -40,7 +45,7 @@ const AddToBasketButton: FC<AddToBasketButtonProps> = ({ product }) => {
         {/* Decrease Quantity Button */}
         <button
           onClick={() => removeItem(product._id)}
-          disabled={itemCount === 0 || isOutOfStock} // Disable if item count is 0 or product is out of stock
+          disabled={itemCount === 0 || isOutOfStock}
           className={`size-8 flex items-center justify-center rounded-full bg-white md:bg-gray-100 hover:bg-gray-200 transition-colors ${
             itemCount === 0 || isOutOfStock ? "opacity-50 cursor-not-allowed" : ""
           }`}
@@ -53,8 +58,8 @@ const AddToBasketButton: FC<AddToBasketButtonProps> = ({ product }) => {
 
         {/* Increase Quantity Button */}
         <button
-          onClick={handleAddItem} // Use the new handleAddItem function
-          disabled={isOutOfStock || (product.stock != null && itemCount >= product.stock)} // Disable if product is out of stock or stock limit reached
+          onClick={handleAddItem}
+          disabled={isOutOfStock || (product.stock != null && itemCount >= product.stock)}
           className={`size-8 flex items-center justify-center rounded-full bg-white md:bg-gray-100 hover:bg-gray-200 transition-colors ${
             isOutOfStock || (product.stock != null && itemCount >= product.stock)
               ? "opacity-50 cursor-not-allowed"

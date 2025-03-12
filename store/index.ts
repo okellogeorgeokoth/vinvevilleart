@@ -29,23 +29,20 @@ const useBasketStore = create<BasketState>()(
           const existingItem = state.items.find(
             (item) => item.product._id === product._id,
           );
+
           if (existingItem) {
+            // If the item already exists, increase its quantity
             return {
-              items: state.items.map((item) => {
-                if (item.product._id === product._id) {
-                  return { ...item, quantity: item.quantity + 1 };
-                } else {
-                  return item;
-                }
-              }),
+              items: state.items.map((item) =>
+                item.product._id === product._id
+                  ? { ...item, quantity: item.quantity + 1 }
+                  : item,
+              ),
             };
           } else {
-            // Ensure the new item includes the _id property
+            // If the item doesn't exist, add it to the basket
             return {
-              items: [
-                ...state.items,
-                { _id: product._id, product, quantity: 1 },
-              ],
+              items: [...state.items, { _id: product._id, product, quantity: 1 }],
             };
           }
         }),
@@ -56,37 +53,41 @@ const useBasketStore = create<BasketState>()(
           items: state.items.reduce((acc, item) => {
             if (item.product._id === productId) {
               if (item.quantity > 1) {
+                // If quantity > 1, decrease the quantity
                 acc.push({ ...item, quantity: item.quantity - 1 });
               }
+              // If quantity === 1, do not add it back (effectively removing it)
             } else {
+              // Keep other items unchanged
               acc.push(item);
             }
             return acc;
           }, [] as BasketItem[]),
         })),
 
+      // Clear the entire basket
       clearBasket: () => set({ items: [] }),
 
+      // Calculate the total price of all items in the basket
       getTotalPrice: () =>
         get().items.reduce(
           (total, item) => total + (item.product.price ?? 0) * item.quantity,
           0,
         ),
 
+      // Get the quantity of a specific item in the basket
       getItemCount: (productId) => {
         const item = get().items.find((item) => item.product._id === productId);
         return item ? item.quantity : 0;
       },
 
+      // Get all items in the basket, grouped by product
       getGroupedItems: () => get().items,
     }),
-
     {
-      name: "basket-store",
+      name: "basket-store", // Name for localStorage persistence
     },
   ),
 );
 
-export default useBasketStore as typeof useBasketStore & {
-  getState: () => BasketState;
-};
+export default useBasketStore;
