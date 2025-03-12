@@ -83,42 +83,44 @@ const AddToButton = ({ product }: AddToButtonProps): ReactElement => {
             >
               <X className="h-5 w-5" />
             </button>
-            <h2 className="text-xl font-bold mb-4">Size Guide</h2>
+            <h2 className="text-xl font-bold mb-4 text-center">Art Size Guide</h2>
             <p className="text-gray-700">
-              Here is the size guide for your product. Please refer to the table
-              below for accurate sizing information.
+              Here is the size guide for your art piece. Please refer to the table below for
+              accurate dimensions and features.
             </p>
-            {/* Example Size Guide Table */}
-            <table className="w-full mt-4">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="px-4 py-2 text-left">Size</th>
-                  <th className="px-4 py-2 text-left">Chest (in)</th>
-                  <th className="px-4 py-2 text-left">Waist (in)</th>
-                  <th className="px-4 py-2 text-left">Hip (in)</th>
-                </tr>
-              </thead>
+            {/* Art Size Guide Table */}
+            <div className="overflow-x-auto mt-4">
+              <table className="w-full min-w-[300px]">
+                <thead>
+                  <tr className="bg-gray-100">
+                    <th className="px-4 py-2 text-left">Length (in)</th>
+                    <th className="px-4 py-2 text-left">Width (in)</th>
+                    <th className="px-4 py-2 text-left">Frame Type</th>
+                    <th className="px-4 py-2 text-left">Material</th>
+                  </tr>
+                </thead>
               <tbody>
-                <tr>
-                  <td className="px-4 py-2">S</td>
-                  <td className="px-4 py-2">34-36</td>
-                  <td className="px-4 py-2">28-30</td>
-                  <td className="px-4 py-2">36-38</td>
+                <tr className="border-b">
+                  <td className="px-4 py-2">24</td>
+                  <td className="px-4 py-2">18</td>
+                  <td className="px-4 py-2">Wooden</td>
+                  <td className="px-4 py-2">Canvas</td>
                 </tr>
-                <tr>
-                  <td className="px-4 py-2">M</td>
-                  <td className="px-4 py-2">38-40</td>
-                  <td className="px-4 py-2">32-34</td>
-                  <td className="px-4 py-2">40-42</td>
+                <tr className="border-b">
+                  <td className="px-4 py-2">36</td>
+                  <td className="px-4 py-2">24</td>
+                  <td className="px-4 py-2">Metal</td>
+                  <td className="px-4 py-2">Acrylic</td>
                 </tr>
-                <tr>
-                  <td className="px-4 py-2">L</td>
-                  <td className="px-4 py-2">42-44</td>
-                  <td className="px-4 py-2">36-38</td>
-                  <td className="px-4 py-2">44-46</td>
+                <tr className="border-b">
+                  <td className="px-4 py-2">48</td>
+                  <td className="px-4 py-2">36</td>
+                  <td className="px-4 py-2">Floating</td>
+                  <td className="px-4 py-2">Paper</td>
                 </tr>
               </tbody>
             </table>
+          </div>
           </div>
         </div>
       )}
