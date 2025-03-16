@@ -15,6 +15,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { OnApproveData } from "@paypal/paypal-js";
+import axios from "axios";
 
 const BasketPage: FC = () => {
   const { getGroupedItems } = useBasketStore();
@@ -42,10 +45,10 @@ const BasketPage: FC = () => {
           <ShoppingCart size={80} strokeWidth={1.5} />
         </div>
         <h2 className="text-3xl font-bold mb-3 text-center">
-        Your cart is empty
+          Your cart is empty
         </h2>
         <p className="text-muted-foreground mb-8 text-center max-w-md text-pretty">
-        It looks like you haven&apos;t added any products to your cart yet. Start shopping to fill it up!
+          It looks like you haven&apos;t added any products to your cart yet. Start shopping to fill it up!
         </p>
         <Link
           href="/"
@@ -55,7 +58,7 @@ const BasketPage: FC = () => {
             <Home className="w-6 h-6" />
           </span>
           <span className="text-sm md:text-base absolute flex items-center justify-center w-full h-full text-primary transition-all duration-300 transform group-hover:translate-x-full ease">
-          Go to the homepage
+            Go to the homepage
           </span>
           <span className="relative invisible">Go to the homepage</span>
         </Link>
@@ -86,10 +89,25 @@ const BasketPage: FC = () => {
     }
   };
 
+  const handlePayPalSuccess = async (details: OnApproveData) => {
+    try {
+      const response = await axios.post("/api/paypal-success", {
+        orderID: details.orderID,
+        totalPrice,
+        customerEmail: user?.emailAddresses[0].emailAddress,
+      });
+      if (response.data.success) {
+        router.push("/success");
+      }
+    } catch (error) {
+      console.log("PayPal success error:", error);
+    }
+  };
+
   return (
     <div className="container mx-auto p-4 max-w-6xl  md:mb-48">
       <h1 className="text-sm font-medium mb-4">
-      Free shipping on orders over $ 1000.00
+        Free shipping on orders over $ 1000.00
       </h1>
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-grow">
@@ -120,9 +138,6 @@ const BasketPage: FC = () => {
                   <h2 className="text-lg font-medium sm:text-xl truncate">
                     {item.product.name}
                   </h2>
-                  {/* <p className="text-sm sm:text-base text-gray-600">
-                    ${((item.product.price ?? 0) * item.quantity).toFixed(2)}
-                  </p> */}
                   <p className="text-sm sm:text-base text-gray-500 font-medium">
                     Variante: US
                   </p>
@@ -168,18 +183,44 @@ const BasketPage: FC = () => {
           </div>
           {/* Checkout */}
           {isSignedIn ? (
-            <Button
-              variant={"default"}
-              onClick={handleCheckout}
-              disabled={isLoading}
-              className="mt-4 w-full"
-            >
-              {isLoading ? "Processing..." : "Checkout"}
-            </Button>
+            <>
+              <Button
+                variant={"default"}
+                onClick={handleCheckout}
+                disabled={isLoading}
+                className="mt-4 w-full"
+              >
+                {isLoading ? "Processing..." : "Checkout with Stripe"}
+              </Button>
+              <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID! }}>
+                <PayPalButtons
+                  createOrder={(_data, actions) => {
+                    return actions.order.create({
+                      intent: "CAPTURE",
+                      purchase_units: [
+                        {
+                          amount: {
+                            currency_code: "USD",
+                            value: totalPrice,
+                          },
+                        },
+                      ],
+                    });
+                  }}
+                  onApprove={(_data, actions) => {
+                    return actions.order!.capture().then((details) => {
+                      // Explicitly cast details to OnApproveData
+                      handlePayPalSuccess(details as OnApproveData);
+                    });
+                  }}
+                  className="mt-4"
+                />
+              </PayPalScriptProvider>
+            </>
           ) : (
             <SignInButton mode="modal">
               <Button className="mt-4 py-5 w-full" variant="default">
-              Log in to continue
+                Log in to continue
               </Button>
             </SignInButton>
           )}
