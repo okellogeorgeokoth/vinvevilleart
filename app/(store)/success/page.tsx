@@ -153,8 +153,8 @@ export default function PaymentSuccess() {
             </div>
             <Separator />
             {groupedItems.map((item) => (
-              <div key={item.product._id} className="grid grid-cols-3 gap-4 text-sm">
-                <span className="text-gray-600 truncate">{item.product.name}</span>
+              <div key={item.product._id} className="grid grid-cols-3 gap-6 text-sm">
+                <span className="text-gray-600 truncate ">{item.product.name}</span>
                 <span className="text-center text-gray-700">{item.quantity}</span>
                 <span className="text-right text-gray-700">
                   $ {(item.product.price ?? 0 * item.quantity).toFixed(2)}
