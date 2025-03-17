@@ -146,6 +146,8 @@ export type Order = {
   customerName?: string;
   email?: string;
   stripePaymentIntentId?: string;
+  paypalOrderId?: string;
+  paypalPayerId?: string;
   products?: Array<{
     product?: {
       _ref: string;

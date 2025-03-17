@@ -17,12 +17,13 @@ export const orderType = defineType({
       name: "stripeCheckoutSessionId",
       title: "Stripe Checkout Session ID",
       type: "string",
+      // Mark this field as optional
     }),
     defineField({
       name: "stripeCustomerId",
       title: "Stripe Customer ID",
       type: "string",
-      validation: (Rule) => Rule.required(),
+      // Mark this field as optional
     }),
     defineField({
       name: "clerkUserId",
@@ -46,9 +47,21 @@ export const orderType = defineType({
       name: "stripePaymentIntentId",
       title: "Stripe Payment Intent ID",
       type: "string",
-      validation: (Rule) => Rule.required(),
+      // Mark this field as optional
     }),
+    defineField({
+      name: "paypalOrderId",
+      title: "PayPal Order ID",
+      type: "string",
+      // Mark this field as optional
 
+    }),
+    defineField({
+      name: "paypalPayerId",
+      title: "PayPal Payer ID",
+      type: "string",
+      // Mark this field as optional
+    }),
     defineField({
       name: "products",
       title: "Products",
@@ -106,7 +119,6 @@ export const orderType = defineType({
       type: "number",
       validation: (Rule) => Rule.required(),
     }),
-
     defineField({
       name: "status",
       title: "Order Status",
@@ -120,8 +132,9 @@ export const orderType = defineType({
           { title: "Cancelled", value: "cancelled" },
         ],
       },
+      // Set default value to "paid"
+      initialValue: "paid",
     }),
-
     defineField({
       name: "orderDate",
       title: "Order Date",
@@ -137,7 +150,6 @@ export const orderType = defineType({
       orderId: "orderNumber",
       email: "email",
     },
-
     prepare(select) {
       const orderIdSnippet = `${select.orderId?.slice(0, 5)}...${select.orderId?.slice(-5)}`;
       return {
