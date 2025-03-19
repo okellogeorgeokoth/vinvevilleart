@@ -39,7 +39,7 @@ export default function TermsPage() {
       </ul>
 
       <Link href="/" className="text-blue-500 hover:underline">
-        Back to Home
+        Back to Home!
       </Link>
     </div>
   );
