@@ -4,7 +4,7 @@ function AboutUs() {
   return (
     <div className="flex flex-col items-center justify-start min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 p-6">
       <div className="bg-white p-10 rounded-xl shadow-2xl w-full max-w-6xl transform transition-all hover:shadow-3xl">
-       <h1 className="text-3xl uppercase font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-600 mb-8 text-center font-serif tracking-wide animate-custom-pulse">
+       <h1 className="text-4xl font-bold text-gray-900 text-center mb-12">
   About Us
 </h1>
 
