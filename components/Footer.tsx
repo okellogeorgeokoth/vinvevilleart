@@ -233,7 +233,7 @@ export function Footer() {
     © {new Date().getFullYear()} Vinceville. All rights reserved.
   </p>
   <p>
-    Developed by <a href="https://my-portfolio-l9ukipofa-okellogeorgeokoths-projects.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">George Okello </a>
+    Developed by <a href="https://my-portfolio-git-main-okellogeorgeokoths-projects.vercel.app" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">George Okello </a>
   </p>
 </div>
         </div>
