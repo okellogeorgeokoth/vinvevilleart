@@ -32,10 +32,10 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ received: true }, { status: 200 });
-  } catch (err: any) {
-    console.error("PayPal Webhook Error:", err.message);
+  } catch (err: unknown) {
+    console.error("PayPal Webhook Error:", err instanceof Error ? err.message : 'Unknown error');
     return NextResponse.json(
-      { error: `Webhook Error: ${err.message}` },
+      { error: `Webhook Error: ${err instanceof Error ? err.message : 'Unknown error'}` },
       { status: 400 }
     );
   }

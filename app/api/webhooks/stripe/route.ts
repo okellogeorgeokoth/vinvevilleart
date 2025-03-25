@@ -66,10 +66,11 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ received: true }, { status: 200 });
-  } catch (err: any) {
-    console.error("Stripe webhook error:", err.message);
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+    console.error("Stripe webhook error:", errorMessage);
     return NextResponse.json(
-      { error: `Webhook Error: ${err.message}` },
+      { error: `Webhook Error: ${errorMessage}` },
       { status: 400 }
     );
   }
