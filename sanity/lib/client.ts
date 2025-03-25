@@ -1,14 +1,12 @@
 import { createClient } from "next-sanity";
 
-import { apiVersion, dataset, projectId } from "../env";
-
 export const client = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  useCdn: true, // Set to false if statically generating pages, using ISR or tag-based revalidation
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "", // Fallback to empty string if undefined
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
+  apiVersion: "2023-05-03",
+  useCdn: process.env.NODE_ENV === "production", // Use CDN in production
+  token: process.env.SANITY_TOKEN, // Only needed for write operations
   stega: {
-    // https://www.sanity.io/docs/stega Editor de la web en vivo
     studioUrl:
       process.env.NODE_ENV === "production"
         ? `https://${process.env.VERCEL_URL}/studio`
