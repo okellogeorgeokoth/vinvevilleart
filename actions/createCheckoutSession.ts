@@ -107,3 +107,4 @@ export async function createPayPalOrder(items: BasketItem[], metadata: Metadata)
     console.log("Error creating PayPal order:", error);
   }
 }
+

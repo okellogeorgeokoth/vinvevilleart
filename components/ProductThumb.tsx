@@ -22,11 +22,11 @@ const ProductThumb = ({ product }: ProductThumbProps): ReactElement => {
   return (
     <Link
       href={`/product/${product.slug?.current}`}
-      className={`group w-full min-w-[350px] h-[500px] md:min-h-[480px] flex flex-col rounded border border-gray-200/30 shadow-sm hover:shadow-md size-full transition-all duration-700 overflow-hidden ${
+      className={`group w-full min-w-[350px] h-[460px] md:min-h-[440px] flex flex-col rounded border border-gray-200/30 shadow-sm hover:shadow-md size-full transition-all duration-700 overflow-hidden ${
         isOutOfStock ? "opacity-50" : ""
       }`}
     >
-      <div className="relative size-full overflow-hidden">
+      <div className="relative h-[70%] overflow-hidden">
         {product.image && (
           <Image
             className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
@@ -50,11 +50,11 @@ const ProductThumb = ({ product }: ProductThumbProps): ReactElement => {
           </Button>
         </div>
       </div>
-      <div className="p-6">
-        <h2 className="text-sm font-medium text-gray-700 truncate">
+      <div className="p-4 flex-1 flex flex-col justify-center">
+        <h2 className="text-sm font-medium text-gray-700 truncate mb-2">
           {product.name}
         </h2>
-        <div className="flex items-center mt-1">
+        <div className="flex items-center">
           <div className="flex items-center gap-2">
             <span className="text-base line-through font-medium text-gray-500">
               {formatCurrency(product.price! + discount)}
@@ -75,10 +75,10 @@ const ProductThumbSkeleton: FC = (): ReactElement => {
   return (
     <Link
       href="#"
-      className="group min-w-[400px] h-[500px] md:min-h-[680px] flex flex-col rounded border border-gray-200/30 shadow-sm size-full transition-all duration-700 overflow-hidden opacity-50"
+      className="group min-w-[350px] h-[460px] md:min-h-[440px] flex flex-col rounded border border-gray-200/30 shadow-sm size-full transition-all duration-700 overflow-hidden opacity-50"
     >
-      <div className="relative size-full overflow-hidden">
-        <Skeleton className="object-cover w-full h-[60%] bg-gray-200" />
+      <div className="relative h-[70%] overflow-hidden">
+        <Skeleton className="object-cover w-full h-full bg-gray-200" />
 
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <Skeleton className="w-32 h-8 bg-gray-300" />
@@ -88,11 +88,11 @@ const ProductThumbSkeleton: FC = (): ReactElement => {
           <Skeleton className="w-24 h-10 bg-gray-300 rounded-full" />
         </div>
       </div>
-      <div className="p-6">
-        <Skeleton className="h-6 w-3/4 bg-gray-200 mb-2" />
-        <div className="flex items-center mt-1 gap-2">
-          <Skeleton className="h-6 w-1/3 bg-gray-200" />
-          <Skeleton className="h-6 w-1/4 bg-gray-300" />
+      <div className="p-4 flex-1 flex flex-col justify-center">
+        <Skeleton className="h-5 w-3/4 bg-gray-200 mb-2" />
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-5 w-1/3 bg-gray-200" />
+          <Skeleton className="h-5 w-1/4 bg-gray-300" />
         </div>
       </div>
     </Link>
