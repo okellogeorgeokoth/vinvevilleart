@@ -22,7 +22,7 @@ const ProductThumb = ({ product }: ProductThumbProps): ReactElement => {
   return (
     <Link
       href={`/product/${product.slug?.current}`}
-      className={`group w-full min-w-[350px]  h-[500px] md:min-h-[480px] flex flex-col rounded border border-gray-200/30  shadow-sm hover:shadow-md size-full transition-all duration-700  overflow-hidden ${
+      className={`group w-full min-w-[350px] h-[500px] md:min-h-[480px] flex flex-col rounded border border-gray-200/30 shadow-sm hover:shadow-md size-full transition-all duration-700 overflow-hidden ${
         isOutOfStock ? "opacity-50" : ""
       }`}
     >
@@ -44,9 +44,9 @@ const ProductThumb = ({ product }: ProductThumbProps): ReactElement => {
           </div>
         )}
 
-        <div className="translate-y-20 group-hover:translate-y-0 opacity-0 group-hover: group-hover:opacity-100 transition-all duration-500  absolute bottom-5 translate-x-1/2 right-1/2 z-10 ">
-          <Button className="rounded-full text-sm  font-medium px-5 py-5">
-          Quick View
+        <div className="md:translate-y-20 md:group-hover:translate-y-0 md:opacity-0 md:group-hover:opacity-100 transition-all duration-500 absolute bottom-5 translate-x-1/2 right-1/2 z-10">
+          <Button className="rounded-full text-sm font-medium px-5 py-5">
+            Quick View
           </Button>
         </div>
       </div>
@@ -56,7 +56,7 @@ const ProductThumb = ({ product }: ProductThumbProps): ReactElement => {
         </h2>
         <div className="flex items-center mt-1">
           <div className="flex items-center gap-2">
-            <span className="text-base line-through font-medium  text-gray-500">
+            <span className="text-base line-through font-medium text-gray-500">
               {formatCurrency(product.price! + discount)}
             </span>
             <span className="text-base font-semibold text-gray-800">
@@ -84,7 +84,7 @@ const ProductThumbSkeleton: FC = (): ReactElement => {
           <Skeleton className="w-32 h-8 bg-gray-300" />
         </div>
 
-        <div className="translate-y-20 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 absolute bottom-5 translate-x-1/2 right-1/2 z-10">
+        <div className="md:translate-y-20 md:group-hover:translate-y-0 md:opacity-0 md:group-hover:opacity-100 transition-all duration-500 absolute bottom-5 translate-x-1/2 right-1/2 z-10">
           <Skeleton className="w-24 h-10 bg-gray-300 rounded-full" />
         </div>
       </div>
