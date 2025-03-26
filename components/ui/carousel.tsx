@@ -1,8 +1,7 @@
 "use client";
 import AutoPlay from "embla-carousel-autoplay";
-import { ReactElement } from "react";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { useCallback, useEffect, useState } from "react";
 import ImageSlider from "../ImageSlider";
 
 const ImagesSlider = [
@@ -20,54 +19,53 @@ const ImagesSlider = [
   },
 ];
 
-const DotButton = ({ 
-  onClick, 
-  isSelected 
-}: { 
-  onClick: () => void; 
-  isSelected: boolean 
-}) => (
+type DotButtonProps = {
+  onClick: () => void;
+  isSelected: boolean;
+};
+
+const DotButton = ({ onClick, isSelected }: DotButtonProps) => (
   <button
     type="button"
     onClick={onClick}
     className={`w-3 h-3 rounded-full mx-1 transition-all duration-300 ${
       isSelected ? "bg-white opacity-100 scale-125" : "bg-white opacity-50"
     }`}
+    aria-label={isSelected ? "Current slide" : "Go to slide"}
   />
 );
 
-const useDotButton = (emblaApi: any) => {
+const useDotButton = (emblaApi: ReturnType<typeof useEmblaCarousel>[1]) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
   const onDotButtonClick = useCallback(
     (index: number) => {
-      if (!emblaApi) return;
-      emblaApi.scrollTo(index);
+      emblaApi?.scrollTo(index);
     },
     [emblaApi]
   );
 
-  const onInit = useCallback((emblaApi: any) => {
+  const onInit = useCallback(() => {
+    if (!emblaApi) return;
     setScrollSnaps(emblaApi.scrollSnapList());
-  }, []);
+  }, [emblaApi]);
 
-  const onSelect = useCallback((emblaApi: any) => {
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
     setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, []);
+  }, [emblaApi]);
 
   useEffect(() => {
     if (!emblaApi) return;
 
-    onInit(emblaApi);
-    onSelect(emblaApi);
+    onInit();
+    onSelect();
     emblaApi.on("reInit", onInit);
-    emblaApi.on("reInit", onSelect);
     emblaApi.on("select", onSelect);
 
     return () => {
       emblaApi.off("reInit", onInit);
-      emblaApi.off("reInit", onSelect);
       emblaApi.off("select", onSelect);
     };
   }, [emblaApi, onInit, onSelect]);

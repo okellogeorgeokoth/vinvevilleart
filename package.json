@@ -10,7 +10,7 @@
     "typegen": "npx sanity@latest schema extract && npx sanity@latest typegen generate"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.12.0",
+    "@clerk/nextjs": "^6.12.11",
     "@paypal/paypal-js": "^8.2.0",
     "@paypal/react-paypal-js": "^8.8.2",
     "@portabletext/react": "^3.2.1",
