@@ -39,7 +39,7 @@
     "html2canvas": "^1.4.1",
     "jsbarcode": "^3.11.6",
     "jspdf": "^3.0.0",
-    "lucide-react": "^0.475.0",
+    "lucide-react": "^0.484.0",
     "next": "^15.2.1",
     "next-sanity": "^9.8.59",
     "nodemailer": "^6.10.0",
