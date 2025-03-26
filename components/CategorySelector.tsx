@@ -20,19 +20,30 @@ interface CategorySelectorProps {
 export function CategoryFilter({ categories }: CategorySelectorProps) {
   const slug = useParams().slug;
   const router = useRouter();
-  const initialValue = categories.find(
+  const initialValue = slug ? categories.find(
     (category) => category.slug?.current === slug,
-  );
+  ) : undefined;
   const [selectedCategory, setSelectedCategory] = useState<
     Category | undefined
   >(initialValue);
 
   const [isOpen, setIsOpen] = React.useState(false);
+  
+  const handleSelectCategory = (category?: Category) => {
+    setSelectedCategory(category);
+    setIsOpen(false);
+    if (category) {
+      router.push(`/categories/${category.slug?.current}`);
+    } else {
+      router.push('/'); // Reset to show all categories
+    }
+  };
+
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant={"ghost"} asChild   >
-          <div className="text-xs md:text-sm font-normal md:font-semibold text-gray-700" >
+        <Button variant={"ghost"} asChild>
+          <div className="text-xs md:text-sm font-normal md:font-semibold text-gray-700">
             {selectedCategory !== undefined && <span>FILTER FOR:</span>}
             <div className="flex items-center gap-3">
               <span className="text-gray-600 group-hover:text-white text-xs md:text-sm transition-colors uppercase font-normal md:font-semibold">
@@ -52,6 +63,17 @@ export function CategoryFilter({ categories }: CategorySelectorProps) {
         className="w-64 max-h-[400px] overflow-auto rounded-lg border border-zinc-200 bg-white p-1 shadow-lg"
         align="start"
       >
+        <DropdownMenuItem
+          className={cn(
+            "text-sm cursor-pointer rounded-md transition-colors px-3 py-2",
+            "text-zinc-600 hover:text-black hover:bg-zinc-100",
+            "focus:text-black focus:bg-zinc-100 focus:outline-none",
+            !selectedCategory && "bg-zinc-100 text-black font-medium",
+          )}
+          onClick={() => handleSelectCategory(undefined)}
+        >
+          All Categories
+        </DropdownMenuItem>
         {categories.map((category) => (
           <DropdownMenuItem
             key={category._id}
@@ -62,11 +84,7 @@ export function CategoryFilter({ categories }: CategorySelectorProps) {
               selectedCategory?._id === category._id &&
                 "bg-zinc-100 text-black font-medium",
             )}
-            onClick={() => {
-              setSelectedCategory(category);
-              setIsOpen(false);
-              router.push(`/categories/${category.slug?.current}`);
-            }}
+            onClick={() => handleSelectCategory(category)}
           >
             {category.title}
           </DropdownMenuItem>
